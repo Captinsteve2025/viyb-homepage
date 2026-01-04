@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charter Ownership Hero - WordPress Block</title>
+</head>
+<body>
+
+<!-- ================================================================
+     WORDPRESS COPY INSTRUCTIONS:
+     1. Copy everything between the START and END markers below
+     2. In WordPress, add a "Custom HTML" block
+     3. Paste the code
+     4. Update the button links to your actual pages
+     5. Customize colors and text as needed
+     ================================================================ -->
+
+<!-- ==================== START COPY HERE ==================== -->
+
+<style>
+/* Charter Ownership Hero Section - Scoped Styles */
+
+.viyb-charter-hero {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+    background: linear-gradient(135deg, #0a2540 0%, rgba(10, 37, 64, 0.95) 50%, rgba(10, 37, 64, 0.9) 100%);
+    padding: 6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+}
+
+.viyb-charter-hero * {
+    box-sizing: border-box;
+}
+
+.viyb-charter-hero-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.viyb-charter-hero-badge {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 9999px;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.viyb-charter-hero-badge-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #d4af37;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.viyb-charter-hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0 0 1.5rem 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.viyb-charter-hero-description {
+    max-width: 48rem;
+    margin: 0 auto 2rem;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.viyb-charter-hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.viyb-charter-hero-btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-decoration: none;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    min-height: 44px;
+    text-align: center;
+}
+
+.viyb-charter-hero-btn-primary {
+    background: #d4af37;
+    color: #ffffff;
+    border-color: #d4af37;
+}
+
+.viyb-charter-hero-btn-primary:hover {
+    background: #b8941f;
+    border-color: #b8941f;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.viyb-charter-hero-btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.viyb-charter-hero-btn-secondary:hover {
+    background: #ffffff;
+    color: #0a2540;
+    border-color: #ffffff;
+    text-decoration: none;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .viyb-charter-hero {
+        min-height: 700px;
+    }
+
+    .viyb-charter-hero-title {
+        font-size: 4.5rem;
+    }
+
+    .viyb-charter-hero-description {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .viyb-charter-hero {
+        padding: 4rem 1rem;
+        min-height: 500px;
+    }
+
+    .viyb-charter-hero-title {
+        font-size: 2.5rem;
+    }
+
+    .viyb-charter-hero-description {
+        font-size: 1.125rem;
+    }
+
+    .viyb-charter-hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .viyb-charter-hero-btn {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+</style>
+
+<section class="viyb-charter-hero">
+    <div class="viyb-charter-hero-container">
+        <!-- Badge -->
+        <div class="viyb-charter-hero-badge">
+            <span class="viyb-charter-hero-badge-text">Turn Your Yacht Into Income</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="viyb-charter-hero-title">
+            Charter Management with MCC
+        </h1>
+
+        <!-- Description -->
+        <p class="viyb-charter-hero-description">
+            Partner with My Caribbean Charters (MCC) Clearinghouse Program for professional charter management, secure bookings, and transparent financial handling in the Caribbean's premier sailing destination
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="viyb-charter-hero-buttons">
+            <a href="/charter-calculator" class="viyb-charter-hero-btn viyb-charter-hero-btn-primary">
+                Calculate Your ROI
+            </a>
+            <a href="/program-guide" class="viyb-charter-hero-btn viyb-charter-hero-btn-secondary">
+                Download Program Guide
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== END COPY HERE ==================== -->
+
+</body>
+</html>

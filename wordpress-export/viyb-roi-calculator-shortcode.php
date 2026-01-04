@@ -1,0 +1,892 @@
+<?php
+/**
+ * Plugin Name: VIYB ROI Calculator Shortcode
+ * Plugin URI: https://viyb.com
+ * Description: Charter Ownership ROI Calculator shortcode for WordPress. Use [viyb_roi_calculator] to embed.
+ * Version: 1.0.0
+ * Author: Virgin Islands Yacht Broker
+ * Author URI: https://viyb.com
+ * License: GPL v2 or later
+ */
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Register the ROI Calculator shortcode
+ */
+function viyb_roi_calculator_shortcode($atts) {
+    // Parse shortcode attributes
+    $atts = shortcode_atts(array(
+        'theme' => 'default',
+    ), $atts, 'viyb_roi_calculator');
+
+    // Start output buffering
+    ob_start();
+    ?>
+
+    <div class="viyb-roi-calculator-wrapper">
+        <style>
+            /* Scoped styles for ROI Calculator */
+            .viyb-roi-calculator-wrapper * {
+                box-sizing: border-box;
+            }
+
+            .viyb-roi-calculator-wrapper {
+                --color-primary: #0a2540;
+                --color-secondary: #d4af37;
+                --color-gray-50: #f9fafb;
+                --color-gray-100: #f3f4f6;
+                --color-gray-200: #e5e7eb;
+                --color-gray-600: #4b5563;
+                --color-green-50: #f0fdf4;
+                --color-green-600: #16a34a;
+                --color-red-50: #fef2f2;
+                --color-red-600: #dc2626;
+                --color-blue-50: #eff6ff;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                line-height: 1.6;
+                color: var(--color-gray-600);
+                margin: 1rem 0;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            @media (min-width: 768px) {
+                .viyb-roi-calculator-wrapper {
+                    margin: 2rem 0;
+                }
+            }
+
+            .viyb-calculator-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 1rem 0.75rem;
+            }
+
+            @media (min-width: 640px) {
+                .viyb-calculator-container {
+                    padding: 1.5rem 1rem;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .viyb-calculator-container {
+                    padding: 2rem 1rem;
+                }
+            }
+
+            .viyb-calculator-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .viyb-calculator-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--color-primary);
+                margin-bottom: 0.5rem;
+            }
+
+            .viyb-calculator-subtitle {
+                font-size: 0.875rem;
+                color: var(--color-gray-600);
+                line-height: 1.4;
+            }
+
+            .viyb-calculator-grid {
+                display: grid;
+                gap: 1.5rem;
+                grid-template-columns: 1fr;
+            }
+
+            @media (min-width: 768px) {
+                .viyb-calculator-title {
+                    font-size: 2rem;
+                }
+
+                .viyb-calculator-subtitle {
+                    font-size: 1rem;
+                }
+
+                .viyb-calculator-grid {
+                    gap: 2rem;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .viyb-calculator-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .viyb-card {
+                background: white;
+                border: 1px solid var(--color-gray-200);
+                border-radius: 0.5rem;
+                padding: 1rem;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            @media (min-width: 640px) {
+                .viyb-card {
+                    padding: 1.5rem;
+                }
+            }
+
+            .viyb-card-title {
+                font-size: 1.125rem;
+                font-weight: 700;
+                color: var(--color-primary);
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            @media (min-width: 640px) {
+                .viyb-card-title {
+                    font-size: 1.25rem;
+                    margin-bottom: 1.5rem;
+                }
+            }
+
+            .viyb-input-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .viyb-input-label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: var(--color-primary);
+            }
+
+            .viyb-input-value {
+                color: var(--color-secondary);
+                font-weight: 700;
+            }
+
+            .viyb-range-input {
+                width: 100%;
+                height: 8px;
+                border-radius: 4px;
+                background: var(--color-gray-200);
+                outline: none;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            .viyb-range-input::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: var(--color-secondary);
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+
+            .viyb-range-input::-moz-range-thumb {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: var(--color-secondary);
+                cursor: pointer;
+                border: none;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+
+            @media (min-width: 768px) {
+                .viyb-range-input::-webkit-slider-thumb {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .viyb-range-input::-moz-range-thumb {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .viyb-number-input {
+                width: 100%;
+                padding: 0.75rem 0.5rem;
+                border: 1px solid var(--color-gray-200);
+                border-radius: 0.25rem;
+                font-size: 1rem;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            @media (min-width: 768px) {
+                .viyb-number-input {
+                    padding: 0.5rem;
+                }
+            }
+
+            .viyb-range-limits {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.75rem;
+                color: var(--color-gray-600);
+                margin-top: 0.25rem;
+            }
+
+            .viyb-input-grid {
+                display: grid;
+                gap: 1rem;
+                grid-template-columns: 1fr;
+            }
+
+            @media (min-width: 640px) {
+                .viyb-input-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .viyb-results-card {
+                background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.1));
+                border: 2px solid rgba(212, 175, 55, 0.2);
+            }
+
+            .viyb-result-section {
+                background: white;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .viyb-result-section-title {
+                font-weight: 700;
+                color: var(--color-primary);
+                margin-bottom: 0.75rem;
+            }
+
+            .viyb-result-row {
+                display: flex;
+                justify-content: space-between;
+                gap: 0.5rem;
+                font-size: 0.8125rem;
+                margin-bottom: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .viyb-result-label {
+                color: var(--color-gray-600);
+                flex: 1 1 auto;
+            }
+
+            .viyb-result-value {
+                font-weight: 600;
+                color: var(--color-primary);
+                flex-shrink: 0;
+                text-align: right;
+            }
+
+            @media (min-width: 480px) {
+                .viyb-result-row {
+                    font-size: 0.875rem;
+                    flex-wrap: nowrap;
+                }
+            }
+
+            .viyb-result-value.negative {
+                color: var(--color-red-600);
+            }
+
+            .viyb-result-divider {
+                border-top: 1px solid var(--color-gray-200);
+                padding-top: 0.5rem;
+                margin-top: 0.5rem;
+            }
+
+            .viyb-result-total {
+                font-size: 1.125rem;
+                font-weight: 700;
+            }
+
+            .viyb-net-income-box {
+                background: var(--color-green-50);
+                border-radius: 0.5rem;
+                padding: 1rem;
+            }
+
+            .viyb-net-income-box.negative {
+                background: var(--color-red-50);
+            }
+
+            .viyb-metric-grid {
+                display: grid;
+                gap: 0.75rem;
+                grid-template-columns: 1fr;
+                margin-bottom: 1.5rem;
+            }
+
+            @media (min-width: 480px) {
+                .viyb-metric-grid {
+                    gap: 1rem;
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .viyb-metric-box {
+                background: rgba(10, 37, 64, 0.05);
+                border-radius: 0.5rem;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .viyb-metric-label {
+                font-size: 0.875rem;
+                color: var(--color-gray-600);
+                margin-bottom: 0.5rem;
+            }
+
+            .viyb-metric-value {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--color-primary);
+                word-break: break-word;
+            }
+
+            @media (min-width: 480px) {
+                .viyb-metric-value {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .viyb-metric-value.secondary {
+                color: var(--color-secondary);
+            }
+
+            .viyb-metric-subtext {
+                font-size: 0.75rem;
+                color: var(--color-gray-600);
+                margin-top: 0.25rem;
+            }
+
+            .viyb-utilization-bar {
+                height: 1rem;
+                background: var(--color-gray-200);
+                border-radius: 9999px;
+                overflow: hidden;
+                display: flex;
+                margin: 0.75rem 0;
+            }
+
+            .viyb-utilization-charter {
+                background: var(--color-secondary);
+            }
+
+            .viyb-utilization-personal {
+                background: var(--color-primary);
+            }
+
+            .viyb-utilization-legend {
+                display: flex;
+                gap: 1rem;
+                font-size: 0.75rem;
+                flex-wrap: wrap;
+            }
+
+            .viyb-legend-item {
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+            }
+
+            .viyb-legend-color {
+                width: 0.75rem;
+                height: 0.75rem;
+                border-radius: 0.125rem;
+            }
+
+            .viyb-notes-box {
+                background: var(--color-blue-50);
+                border: 2px solid #93c5fd;
+                border-radius: 0.5rem;
+                padding: 1rem;
+            }
+
+            @media (min-width: 640px) {
+                .viyb-notes-box {
+                    padding: 1.5rem;
+                }
+            }
+
+            .viyb-notes-title {
+                font-weight: 700;
+                color: var(--color-primary);
+                margin-bottom: 0.75rem;
+            }
+
+            .viyb-notes-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            .viyb-notes-list li {
+                font-size: 0.875rem;
+                color: var(--color-gray-600);
+                margin-bottom: 0.5rem;
+                padding-left: 1rem;
+                position: relative;
+            }
+
+            .viyb-notes-list li:before {
+                content: "•";
+                color: var(--color-secondary);
+                font-weight: bold;
+                position: absolute;
+                left: 0;
+            }
+
+            .viyb-cta-button {
+                display: inline-block;
+                width: 100%;
+                padding: 1rem 2rem;
+                background: var(--color-secondary);
+                color: white;
+                text-align: center;
+                border-radius: 0.25rem;
+                font-weight: 600;
+                font-size: 1rem;
+                text-decoration: none;
+                transition: all 0.3s;
+                margin-top: 1rem;
+                min-height: 44px;
+            }
+
+            .viyb-cta-button:hover {
+                background: #b8941f;
+                transform: translateY(-2px);
+                color: white;
+                text-decoration: none;
+            }
+
+            @media (min-width: 768px) {
+                .viyb-cta-button {
+                    padding: 0.75rem 2rem;
+                }
+            }
+
+            .viyb-helper-text {
+                font-size: 0.75rem;
+                color: var(--color-gray-600);
+                margin-top: 0.25rem;
+            }
+        </style>
+
+        <div class="viyb-calculator-container">
+            <div class="viyb-calculator-header">
+                <h2 class="viyb-calculator-title">⚓ Charter Ownership ROI Calculator</h2>
+                <p class="viyb-calculator-subtitle">Estimate your potential income and return on investment with the My Caribbean Charters / VIYB (MCC) program</p>
+            </div>
+
+            <div class="viyb-calculator-grid">
+                <!-- INPUT PANEL -->
+                <div class="viyb-inputs-panel">
+                    <!-- Purchase Details -->
+                    <div class="viyb-card">
+                        <h3 class="viyb-card-title">💰 Purchase Details</h3>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Purchase Price</span>
+                                <span class="viyb-input-value" id="viyb-purchasePrice-display">$1,000,000</span>
+                            </label>
+                            <input type="range" class="viyb-range-input" id="viyb-purchasePrice" min="500000" max="5000000" step="50000" value="1000000">
+                            <div class="viyb-range-limits">
+                                <span>$500K</span>
+                                <span>$5M</span>
+                            </div>
+                        </div>
+
+                        <div class="viyb-input-grid">
+                            <div class="viyb-input-group">
+                                <label class="viyb-input-label">
+                                    <span>Down Payment</span>
+                                    <span class="viyb-input-value" id="viyb-downPayment-display">25%</span>
+                                </label>
+                                <input type="range" class="viyb-range-input" id="viyb-downPayment" min="20" max="50" step="5" value="25">
+                            </div>
+
+                            <div class="viyb-input-group">
+                                <label class="viyb-input-label">
+                                    <span>Loan Term</span>
+                                    <span class="viyb-input-value" id="viyb-loanTerm-display">20 years</span>
+                                </label>
+                                <input type="range" class="viyb-range-input" id="viyb-loanTerm" min="10" max="25" step="5" value="20">
+                            </div>
+                        </div>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Interest Rate</span>
+                                <span class="viyb-input-value" id="viyb-interestRate-display">5.5%</span>
+                            </label>
+                            <input type="range" class="viyb-range-input" id="viyb-interestRate" min="3.5" max="8.5" step="0.5" value="5.5">
+                            <div class="viyb-range-limits">
+                                <span>3.5%</span>
+                                <span>8.5%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charter Revenue -->
+                    <div class="viyb-card">
+                        <h3 class="viyb-card-title">📈 Charter Revenue</h3>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Charter Weeks per Year</span>
+                                <span class="viyb-input-value" id="viyb-charterWeeks-display">20 weeks</span>
+                            </label>
+                            <input type="range" class="viyb-range-input" id="viyb-charterWeeks" min="10" max="35" step="1" value="20">
+                            <div class="viyb-range-limits">
+                                <span>10 weeks</span>
+                                <span>35 weeks</span>
+                            </div>
+                        </div>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Weekly Charter Rate</span>
+                                <span class="viyb-input-value" id="viyb-weeklyRate-display">$25,000</span>
+                            </label>
+                            <input type="range" class="viyb-range-input" id="viyb-weeklyRate" min="15000" max="100000" step="5000" value="25000">
+                            <div class="viyb-range-limits">
+                                <span>$15,000</span>
+                                <span>$100,000</span>
+                            </div>
+                        </div>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Personal Use (weeks/year)</span>
+                                <span class="viyb-input-value" id="viyb-personalWeeks-display">6 weeks</span>
+                            </label>
+                            <input type="range" class="viyb-range-input" id="viyb-personalWeeks" min="2" max="12" step="1" value="6">
+                        </div>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Management Fee (per month)</span>
+                                <span class="viyb-input-value" id="viyb-managementFee-display">$5,000</span>
+                            </label>
+                            <input type="range" class="viyb-range-input" id="viyb-managementFee" min="1000" max="10000" step="500" value="5000">
+                            <div class="viyb-range-limits">
+                                <span>$1,000</span>
+                                <span>$10,000</span>
+                            </div>
+                            <p class="viyb-helper-text">Monthly management fee</p>
+                        </div>
+                    </div>
+
+                    <!-- Annual Expenses -->
+                    <div class="viyb-card">
+                        <h3 class="viyb-card-title">💵 Annual Expenses</h3>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Maintenance & Repairs</span>
+                            </label>
+                            <input type="number" class="viyb-number-input" id="viyb-annualMaintenance" value="25000">
+                            <p class="viyb-helper-text">Included in MCC program</p>
+                        </div>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Insurance (Annual)</span>
+                            </label>
+                            <input type="number" class="viyb-number-input" id="viyb-annualInsurance" value="12000">
+                        </div>
+
+                        <div class="viyb-input-group">
+                            <label class="viyb-input-label">
+                                <span>Other Expenses (Annual)</span>
+                            </label>
+                            <input type="number" class="viyb-number-input" id="viyb-otherExpenses" value="5000">
+                            <p class="viyb-helper-text">Marina fees, registration, etc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESULTS PANEL -->
+                <div class="viyb-results-panel">
+                    <!-- Financial Summary -->
+                    <div class="viyb-card viyb-results-card">
+                        <h3 class="viyb-card-title">📊 Financial Summary</h3>
+
+                        <!-- Revenue Section -->
+                        <div class="viyb-result-section">
+                            <h4 class="viyb-result-section-title">Revenue</h4>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Gross Charter Revenue</span>
+                                <span class="viyb-result-value" id="viyb-grossRevenue">$500,000</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Management Fee (<span id="viyb-mgmtFeePercent">$5,000</span>/month)</span>
+                                <span class="viyb-result-value negative" id="viyb-mgmtFeeAmount">-$60,000</span>
+                            </div>
+                            <div class="viyb-result-row viyb-result-divider">
+                                <span class="viyb-result-label viyb-result-total">Net Charter Revenue</span>
+                                <span class="viyb-result-value viyb-result-total" style="color: var(--color-secondary)" id="viyb-netRevenue">$375,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Expenses Section -->
+                        <div class="viyb-result-section">
+                            <h4 class="viyb-result-section-title">Annual Expenses</h4>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Loan Payment</span>
+                                <span class="viyb-result-value" id="viyb-loanPayment">$61,659</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Maintenance</span>
+                                <span class="viyb-result-value" id="viyb-maintenance">$25,000</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Insurance</span>
+                                <span class="viyb-result-value" id="viyb-insurance">$12,000</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Other Expenses</span>
+                                <span class="viyb-result-value" id="viyb-otherExp">$5,000</span>
+                            </div>
+                            <div class="viyb-result-row viyb-result-divider">
+                                <span class="viyb-result-label viyb-result-total">Total Expenses</span>
+                                <span class="viyb-result-value viyb-result-total" id="viyb-totalExpenses">$103,659</span>
+                            </div>
+                        </div>
+
+                        <!-- Net Income -->
+                        <div class="viyb-net-income-box" id="viyb-netIncomeBox">
+                            <div class="viyb-result-row" style="margin-bottom: 0.75rem;">
+                                <span class="viyb-result-label" style="font-weight: 700;">Net Annual Income</span>
+                                <span class="viyb-result-value" style="font-size: 1.125rem;" id="viyb-netIncome">$271,341</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label" style="font-weight: 700;">Net Cash Flow</span>
+                                <span class="viyb-result-value" style="font-size: 1.25rem; font-weight: 700;" id="viyb-netCashFlow">$209,682</span>
+                            </div>
+                            <div class="viyb-helper-text" style="text-align: right; margin-top: 0.5rem;" id="viyb-monthlyCashFlow">$17,474 per month</div>
+                        </div>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="viyb-card">
+                        <h3 class="viyb-card-title">🎯 Key Metrics</h3>
+
+                        <div class="viyb-metric-grid">
+                            <div class="viyb-metric-box">
+                                <div class="viyb-metric-label">Return on Investment</div>
+                                <div class="viyb-metric-value" id="viyb-roi">27.13%</div>
+                                <div class="viyb-metric-subtext">Annual ROI</div>
+                            </div>
+
+                            <div class="viyb-metric-box">
+                                <div class="viyb-metric-label">Cash-on-Cash Return</div>
+                                <div class="viyb-metric-value secondary" id="viyb-cashOnCash">83.87%</div>
+                                <div class="viyb-metric-subtext">On down payment</div>
+                            </div>
+
+                            <div class="viyb-metric-box">
+                                <div class="viyb-metric-label">Down Payment</div>
+                                <div class="viyb-metric-value" id="viyb-downPaymentAmt">$250,000</div>
+                                <div class="viyb-metric-subtext" id="viyb-downPaymentPct">25% of purchase</div>
+                            </div>
+
+                            <div class="viyb-metric-box">
+                                <div class="viyb-metric-label">Payback Period</div>
+                                <div class="viyb-metric-value" id="viyb-paybackPeriod">1.2 yrs</div>
+                                <div class="viyb-metric-subtext">To recover down payment</div>
+                            </div>
+                        </div>
+
+                        <!-- Charter Utilization -->
+                        <div class="viyb-result-section">
+                            <h4 class="viyb-result-section-title">Charter Utilization</h4>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Charter Weeks</span>
+                                <span class="viyb-result-value" id="viyb-charterWeeksDisplay">20 weeks</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Personal Use</span>
+                                <span class="viyb-result-value" id="viyb-personalWeeksDisplay">6 weeks</span>
+                            </div>
+                            <div class="viyb-result-row">
+                                <span class="viyb-result-label">Maintenance/Downtime</span>
+                                <span class="viyb-result-value" id="viyb-downtimeWeeks">26 weeks</span>
+                            </div>
+
+                            <div class="viyb-utilization-bar">
+                                <div class="viyb-utilization-charter" id="viyb-charterBar" style="width: 38.46%"></div>
+                                <div class="viyb-utilization-personal" id="viyb-personalBar" style="width: 11.54%"></div>
+                            </div>
+
+                            <div class="viyb-utilization-legend">
+                                <div class="viyb-legend-item">
+                                    <div class="viyb-legend-color" style="background: var(--color-secondary)"></div>
+                                    <span>Charter</span>
+                                </div>
+                                <div class="viyb-legend-item">
+                                    <div class="viyb-legend-color" style="background: var(--color-primary)"></div>
+                                    <span>Personal</span>
+                                </div>
+                                <div class="viyb-legend-item">
+                                    <div class="viyb-legend-color" style="background: var(--color-gray-200)"></div>
+                                    <span>Maintenance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Notes -->
+                    <div class="viyb-notes-box">
+                        <h4 class="viyb-notes-title">Important Notes</h4>
+                        <ul class="viyb-notes-list">
+                            <li>This calculator provides estimates only. Actual results may vary based on market conditions and yacht utilization.</li>
+                            <li>Charter rates vary by season, yacht condition, and market demand.</li>
+                            <li>MCC management includes maintenance, cleaning, crew, and marketing.</li>
+                            <li>Tax benefits such as depreciation are not included in this calculation.</li>
+                            <li>Consult with our charter specialists and your financial advisor for personalized guidance.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            (function() {
+                // Format currency
+                function formatCurrency(value) {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                    }).format(value);
+                }
+
+                // Format percent
+                function formatPercent(value) {
+                    return value.toFixed(2) + '%';
+                }
+
+                // Calculate and update results
+                function calculate() {
+                    // Get input values
+                    const purchasePrice = parseFloat(document.getElementById('viyb-purchasePrice').value);
+                    const downPayment = parseFloat(document.getElementById('viyb-downPayment').value);
+                    const loanTerm = parseFloat(document.getElementById('viyb-loanTerm').value);
+                    const interestRate = parseFloat(document.getElementById('viyb-interestRate').value);
+                    const charterWeeks = parseFloat(document.getElementById('viyb-charterWeeks').value);
+                    const weeklyRate = parseFloat(document.getElementById('viyb-weeklyRate').value);
+                    const personalWeeks = parseFloat(document.getElementById('viyb-personalWeeks').value);
+                    const managementFee = parseFloat(document.getElementById('viyb-managementFee').value);
+                    const annualMaintenance = parseFloat(document.getElementById('viyb-annualMaintenance').value) || 0;
+                    const annualInsurance = parseFloat(document.getElementById('viyb-annualInsurance').value) || 0;
+                    const otherExpenses = parseFloat(document.getElementById('viyb-otherExpenses').value) || 0;
+
+                    // Update displays
+                    document.getElementById('viyb-purchasePrice-display').textContent = formatCurrency(purchasePrice);
+                    document.getElementById('viyb-downPayment-display').textContent = downPayment + '%';
+                    document.getElementById('viyb-loanTerm-display').textContent = loanTerm + ' years';
+                    document.getElementById('viyb-interestRate-display').textContent = interestRate + '%';
+                    document.getElementById('viyb-charterWeeks-display').textContent = charterWeeks + ' weeks';
+                    document.getElementById('viyb-weeklyRate-display').textContent = formatCurrency(weeklyRate);
+                    document.getElementById('viyb-personalWeeks-display').textContent = personalWeeks + ' weeks';
+                    document.getElementById('viyb-managementFee-display').textContent = formatCurrency(managementFee);
+
+                    // Calculate loan details
+                    const downPaymentAmount = purchasePrice * (downPayment / 100);
+                    const loanAmount = purchasePrice - downPaymentAmount;
+                    const monthlyRate = interestRate / 100 / 12;
+                    const numberOfPayments = loanTerm * 12;
+                    const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+                    const annualLoanPayment = monthlyPayment * 12;
+
+                    // Calculate revenue
+                    const grossCharterRevenue = charterWeeks * weeklyRate;
+                    const managementFeeAmount = managementFee * 12;
+                    const netCharterRevenue = grossCharterRevenue - managementFeeAmount;
+
+                    // Calculate expenses and income
+                    const totalAnnualExpenses = annualMaintenance + annualInsurance + otherExpenses + annualLoanPayment;
+                    const netAnnualIncome = netCharterRevenue - annualMaintenance - annualInsurance - otherExpenses;
+                    const netCashFlow = netAnnualIncome - annualLoanPayment;
+                    const roi = ((netAnnualIncome / purchasePrice) * 100);
+                    const cashOnCashReturn = ((netCashFlow / downPaymentAmount) * 100);
+                    const paybackPeriod = downPaymentAmount / (netCashFlow > 0 ? netCashFlow : 1);
+
+                    // Update revenue section
+                    document.getElementById('viyb-grossRevenue').textContent = formatCurrency(grossCharterRevenue);
+                    document.getElementById('viyb-mgmtFeePercent').textContent = formatCurrency(managementFee);
+                    document.getElementById('viyb-mgmtFeeAmount').textContent = '-' + formatCurrency(managementFeeAmount);
+                    document.getElementById('viyb-netRevenue').textContent = formatCurrency(netCharterRevenue);
+
+                    // Update expenses section
+                    document.getElementById('viyb-loanPayment').textContent = formatCurrency(annualLoanPayment);
+                    document.getElementById('viyb-maintenance').textContent = formatCurrency(annualMaintenance);
+                    document.getElementById('viyb-insurance').textContent = formatCurrency(annualInsurance);
+                    document.getElementById('viyb-otherExp').textContent = formatCurrency(otherExpenses);
+                    document.getElementById('viyb-totalExpenses').textContent = formatCurrency(totalAnnualExpenses);
+
+                    // Update net income
+                    document.getElementById('viyb-netIncome').textContent = formatCurrency(netAnnualIncome);
+                    document.getElementById('viyb-netCashFlow').textContent = formatCurrency(netCashFlow);
+                    document.getElementById('viyb-monthlyCashFlow').textContent = formatCurrency(netCashFlow / 12) + ' per month';
+
+                    // Update net income box color
+                    const netIncomeBox = document.getElementById('viyb-netIncomeBox');
+                    if (netCashFlow >= 0) {
+                        netIncomeBox.className = 'viyb-net-income-box';
+                    } else {
+                        netIncomeBox.className = 'viyb-net-income-box negative';
+                    }
+
+                    // Update key metrics
+                    document.getElementById('viyb-roi').textContent = formatPercent(roi);
+                    document.getElementById('viyb-cashOnCash').textContent = formatPercent(cashOnCashReturn);
+                    document.getElementById('viyb-downPaymentAmt').textContent = formatCurrency(downPaymentAmount);
+                    document.getElementById('viyb-downPaymentPct').textContent = downPayment + '% of purchase';
+                    document.getElementById('viyb-paybackPeriod').textContent = netCashFlow > 0 ? paybackPeriod.toFixed(1) + ' yrs' : 'N/A';
+
+                    // Update utilization
+                    document.getElementById('viyb-charterWeeksDisplay').textContent = charterWeeks + ' weeks';
+                    document.getElementById('viyb-personalWeeksDisplay').textContent = personalWeeks + ' weeks';
+                    const downtimeWeeks = 52 - charterWeeks - personalWeeks;
+                    document.getElementById('viyb-downtimeWeeks').textContent = downtimeWeeks + ' weeks';
+
+                    // Update utilization bar
+                    const charterPercent = (charterWeeks / 52) * 100;
+                    const personalPercent = (personalWeeks / 52) * 100;
+                    document.getElementById('viyb-charterBar').style.width = charterPercent + '%';
+                    document.getElementById('viyb-personalBar').style.width = personalPercent + '%';
+                }
+
+                // Add event listeners to all inputs
+                const inputs = document.querySelectorAll('.viyb-roi-calculator-wrapper input');
+                inputs.forEach(function(input) {
+                    input.addEventListener('input', calculate);
+                });
+
+                // Initial calculation
+                calculate();
+            })();
+        </script>
+    </div>
+
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('viyb_roi_calculator', 'viyb_roi_calculator_shortcode');

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charter Management Hero Section</title>
+
+    <style>
+        /* ============================================
+           CHARTER OWNERSHIP HERO SECTION
+           Standalone WordPress Block Export
+           ============================================ */
+
+        /* Reset */
+        .charter-hero-section * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Main Hero Section */
+        .charter-hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 600px;
+            background: linear-gradient(135deg, #0a2540 0%, rgba(10, 37, 64, 0.95) 50%, rgba(10, 37, 64, 0.9) 100%);
+            padding: 6rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Container */
+        .charter-hero-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Badge */
+        .charter-hero-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 9999px;
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .charter-hero-badge-text {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #d4af37;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Main Headline */
+        .charter-hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .charter-hero-section {
+                min-height: 700px;
+            }
+
+            .charter-hero-title {
+                font-size: 4.5rem;
+            }
+        }
+
+        /* Description */
+        .charter-hero-description {
+            max-width: 48rem;
+            margin: 0 auto 2rem;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .charter-hero-description {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Button Container */
+        .charter-hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Base Button Styles */
+        .charter-hero-btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            min-height: 44px;
+            text-align: center;
+        }
+
+        /* Primary Button (Gold) */
+        .charter-hero-btn-primary {
+            background: #d4af37;
+            color: #ffffff;
+            border-color: #d4af37;
+        }
+
+        .charter-hero-btn-primary:hover {
+            background: #b8941f;
+            border-color: #b8941f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Secondary Button (Outline) */
+        .charter-hero-btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .charter-hero-btn-secondary:hover {
+            background: #ffffff;
+            color: #0a2540;
+            border-color: #ffffff;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 767px) {
+            .charter-hero-section {
+                padding: 4rem 1rem;
+                min-height: 500px;
+            }
+
+            .charter-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .charter-hero-description {
+                font-size: 1.125rem;
+            }
+
+            .charter-hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .charter-hero-btn {
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         CHARTER OWNERSHIP HERO SECTION
+         Copy everything from here...
+         ============================================ -->
+
+    <section class="charter-hero-section">
+        <div class="charter-hero-container">
+            <!-- Badge -->
+            <div class="charter-hero-badge">
+                <span class="charter-hero-badge-text">Turn Your Yacht Into Income</span>
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="charter-hero-title">
+                Charter Management with MCC
+            </h1>
+
+            <!-- Description -->
+            <p class="charter-hero-description">
+                Partner with My Caribbean Charters (MCC) Clearinghouse Program for professional charter management, secure bookings, and transparent financial handling in the Caribbean's premier sailing destination
+            </p>
+
+            <!-- Buttons -->
+            <div class="charter-hero-buttons">
+                <a href="/charter-calculator" class="charter-hero-btn charter-hero-btn-primary">
+                    Calculate Your ROI
+                </a>
+                <a href="/program-guide" class="charter-hero-btn charter-hero-btn-secondary">
+                    Download Program Guide
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ...to here for WordPress
+         ============================================ -->
+</body>
+</html>

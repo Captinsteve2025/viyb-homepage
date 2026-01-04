@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Design System Colors */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 220 49% 8%; /* #0B1220 - Text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 49% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 49% 8%;
+
+    --primary: 210 73% 15%; /* #0A2540 - Navy */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 46 69% 52%; /* #D4AF37 - Gold */
+    --secondary-foreground: 220 49% 8%;
+
+    --muted: 220 18% 97%; /* #F7F8FA - Surface */
+    --muted-foreground: 217 11% 40%; /* #5B6472 - Muted text */
+
+    --accent: 46 69% 52%; /* #D4AF37 - Gold */
+    --accent-foreground: 220 49% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%; /* #E6E8EC */
+    --input: 220 13% 91%;
+    --ring: 210 73% 15%; /* Navy for focus rings */
+
+    --radius: 0.75rem; /* 12px for cards */
+    --radius-button: 0.625rem; /* 10px for buttons */
+
+    /* Surface color for sections */
+    --surface: 220 18% 97%; /* #F7F8FA */
+  }
+
+  .dark {
+    --background: 220 49% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 49% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 49% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 210 73% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 46 69% 52%;
+    --secondary-foreground: 220 49% 8%;
+
+    --muted: 220 20% 15%;
+    --muted-foreground: 217 11% 60%;
+
+    --accent: 46 69% 52%;
+    --accent-foreground: 220 49% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 20% 20%;
+    --input: 220 20% 20%;
+    --ring: 46 69% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Typography system */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  p, span, li, a {
+    @apply font-body;
+  }
+}

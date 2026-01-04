@@ -1,0 +1,14 @@
+<svg width="260" height="50" viewBox="0 0 260 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- White checkmark swoosh -->
+  <path d="M3 22 L12 35 L32 8" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- VIRGIN ISLANDS text in white -->
+  <text x="48" y="20" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">
+    VIRGIN ISLANDS
+  </text>
+
+  <!-- YACHT BROKER text in white -->
+  <text x="48" y="38" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#FFFFFF" letter-spacing="2">
+    YACHT BROKER
+  </text>
+</svg>

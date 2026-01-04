@@ -1,0 +1,116 @@
+<!--
+    ROI Calculator Widget
+    Perfect for sidebars, footers, or CTA sections
+    Paste in Custom HTML widget or page builder
+-->
+
+<style>
+    .viyb-calculator-widget {
+        background: linear-gradient(135deg, #0a2540 0%, #0d2f52 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(10, 37, 64, 0.3);
+        margin: 1.5rem 0;
+    }
+
+    .viyb-widget-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .viyb-widget-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #d4af37;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+
+    .viyb-widget-subtitle {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .viyb-widget-button {
+        display: inline-block;
+        background: #d4af37;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 1rem;
+    }
+
+    .viyb-widget-button:hover {
+        background: #b8941f;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        color: white;
+        text-decoration: none;
+    }
+
+    .viyb-widget-features {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .viyb-widget-feature {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0.5rem;
+    }
+
+    .viyb-widget-feature:before {
+        content: "✓";
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        background: #d4af37;
+        border-radius: 50%;
+        line-height: 1rem;
+        text-align: center;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+</style>
+
+<div class="viyb-calculator-widget">
+    <div class="viyb-widget-icon">⚓</div>
+    <h3 class="viyb-widget-title">Calculate Your ROI</h3>
+    <p class="viyb-widget-subtitle">
+        Estimate your charter ownership income and return on investment
+    </p>
+    <a href="/charter-calculator" class="viyb-widget-button">
+        Calculate Now →
+    </a>
+    <div class="viyb-widget-features">
+        <div class="viyb-widget-feature">Instant calculations</div>
+        <div class="viyb-widget-feature">Adjust all parameters</div>
+        <div class="viyb-widget-feature">See real-time results</div>
+    </div>
+</div>
+
+<!--
+USAGE:
+1. Copy this entire code block
+2. Paste in WordPress Custom HTML widget
+3. Change href="/charter-calculator" to your actual calculator page URL
+4. Add to sidebar, footer, or anywhere!
+
+CUSTOMIZATION:
+- Change colors: Edit #0a2540 (navy) and #d4af37 (gold)
+- Change button text: Edit "Calculate Now →"
+- Change link: Edit href="/charter-calculator"
+- Add/remove features: Edit .viyb-widget-feature divs
+-->
