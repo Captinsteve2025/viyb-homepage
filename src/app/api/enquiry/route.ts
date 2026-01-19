@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-// @ts-expect-error - nodemailer types may not be present
 import * as nodemailer from "nodemailer";
 
 export async function POST(request: Request) {

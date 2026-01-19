@@ -1,6 +1,76 @@
 # VIYB Homepage - Todo Tracker
 
-## Completed ✓
+## Listings Manager Module (v268) - COMPLETE
+
+### Admin Authentication
+- [x] Admin login page at `/admin/login`
+- [x] Password-based authentication from `ADMIN_PASSWORD` env var
+- [x] Cookie-based sessions (httpOnly `viyb_admin` cookie)
+- [x] Middleware protection for all `/admin/*` routes
+- [x] Logout functionality
+
+### Multi-Step Wizard CMS
+- [x] Details step - Year, Make, Model, Length, Hull Material, Category, Class, Price, Location, HIN
+- [x] Photos & Videos step - Upload photos with sharp optimization, YouTube/Vimeo video URLs, 360 photos, virtual tours
+- [x] Measurements step - LOA, LWL, Beam, Draft, Displacement, Fuel/Water/Holding capacities, Cabins, Berths, Heads
+- [x] Propulsion step - Multiple engines with power, make, model, year, hours, engine type, drive type, fuel type, propeller
+- [x] Features step - Grouped checkboxes (Electronics, Inside, Electrical, Outside, Covers, Additional) with Check/Uncheck All
+- [x] Descriptions step - Main description with AI Generate button, Additional description blocks (Disclaimer, Mechanical, etc.)
+
+### Admin UI Components
+- [x] WizardLayout with left sidebar navigation
+- [x] Listing Status dropdown (Active/Inactive)
+- [x] Listing Score panel with circular donut chart (7 items: Price, Additional Class, Description, HIN, Photos, Videos, Engine Hours)
+- [x] Quick action buttons (Email, History, Print, Preview)
+- [x] Save and Continue navigation
+
+### Admin Inventory List
+- [x] Table view with Status, Year, Make, Model, Length, Price, Location, Updated date
+- [x] Search functionality
+- [x] Filter by status (All, Active, Inactive)
+- [x] New Listing button
+- [x] Export CSV functionality
+- [x] Row actions: Edit, Duplicate, Delete, Preview
+
+### Data Storage
+- [x] File-backed JSON storage at `/data/listings.json`
+- [x] Repository layer at `lib/listings/store.ts` for easy migration to Prisma
+- [x] TypeScript types for Listing, Engine, Measurements, Media, FeatureGroups, AdditionalDescriptionBlock
+- [x] Image uploads stored in `/public/uploads/listings/{listingId}/`
+
+### Media Processing
+- [x] Sharp image optimization
+- [x] WebP and AVIF generation
+- [x] Thumbnail creation (400x300)
+- [x] Max width resize to 2400px
+- [x] Set primary photo functionality
+- [x] Video URL support (YouTube/Vimeo)
+
+### AI Description Generator
+- [x] Template-based description generation
+- [x] Uses listing data (year, make, model, category, class, measurements, engines, features)
+- [x] Structured for future LLM integration
+
+### Public Listing Pages
+- [x] Index page at `/boats` with search and card layout
+- [x] Detail page at `/boats/[slug]` with hero gallery, specs, propulsion, features, descriptions
+- [x] Contact CTA buttons
+- [x] Only shows active listings
+
+### API Routes
+- [x] POST `/api/admin/login` - Authentication
+- [x] POST `/api/admin/logout` - Clear session
+- [x] GET/POST `/api/listings` - List all / Create new
+- [x] GET/PUT/DELETE `/api/listings/[id]` - Read, Update, Delete
+- [x] POST `/api/listings/[id]?action=duplicate` - Duplicate listing
+- [x] GET `/api/listings?format=csv` - Export CSV
+- [x] POST/PUT/DELETE `/api/listings/[id]/media` - Media upload and management
+- [x] POST `/api/listings/[id]/generate-description` - AI description generator
+
+## Environment Variables Required
+- `ADMIN_PASSWORD` - Password for admin login (default: `admin123` in dev)
+
+## Previously Completed (in GitHub) ✓
 - [x] Rebuild Bali product card image pipeline with static data
 - [x] Replace scraper with deterministic static data (baliModelsData.ts)
 - [x] Main card images now always use full exterior side profiles
@@ -14,28 +84,10 @@
 - [x] Updated Bali 5.2 with sailing profile from bali-catamarans.hr
 - [x] Cleared all manual review flags
 - [x] **Charter Ownership Page Updated with Yacht As A Business Program (v150)**
-  - Added "Yacht As A Business Program" section explaining LLC structure
-  - Enhanced Section 179 details with 2025 limits ($2.5M deduction, $4.05M equipment)
-  - Added tax savings example ($555K savings on $1.5M yacht at 37% bracket)
-  - Listed 8 categories of deductible business expenses
-  - Added IRS compliance warning about genuine business intent
-  - Updated charter income section with BVI market details
-
-## Models with verified exterior side profile images (v149):
-1. Bali Catsmart - sailing-profile ✓
-2. Bali Catspace - exterior-starboard ✓
-3. Bali 4.2 - sailing-profile ✓
-4. Bali 4.4 - silhouette ✓ (perfect)
-5. Bali 4.6 - sailing-profile ✓
-6. Bali 4.8 - silhouette ✓ (perfect)
-7. Bali 5.2 - sailing-profile ✓ (updated with bali-catamarans.hr image)
-8. Bali 5.4 - sailing-profile ✓
-9. Bali 5.8 - exterior-starboard ✓
-
-All 9 models now have verified full exterior side profile images!
 
 ## Pending / Future Enhancements
 - [ ] Mobile QA for homepage hero and Bali detail pages
 - [ ] Add lightbox modals for layout galleries on model cards
 - [ ] Consider adding comparison links back to model cards
+- [ ] Commit Listings Manager module to GitHub
 - [ ] Deploy site to production when ready
