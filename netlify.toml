@@ -8,12 +8,8 @@
   ]
 
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "bun run build"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NEXT_DISABLE_TELEMETRY = "1"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
