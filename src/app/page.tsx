@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Anchor, Award, CheckCircle2, DollarSign, GraduationCap, Mail, MapPin, Phone, Sailboat, Ship, Star, TrendingUp, Users } from "lucide-react";
+import { Anchor, Award, CheckCircle2, DollarSign, GraduationCap, LogIn, Mail, MapPin, Phone, Sailboat, Ship, Star, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 import Logo from "@/components/Logo";
@@ -104,13 +104,16 @@ export default function Home() {
           <Link href="/">
             <Logo variant="light" />
           </Link>
-          <nav className="hidden gap-8 md:flex">
+          <nav className="hidden items-center gap-8 md:flex">
             <Link href="/brokerage" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Brokerage</Link>
             <Link href="/bali" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">New Bali</Link>
             <Link href="/charter" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Yacht Charters</Link>
             <Link href="/training" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Training</Link>
             <Link href="/charter-ownership" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Charter Ownership</Link>
             <a href="#contact" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Contact</a>
+            <Link href="/admin/login" className="p-2 text-muted-foreground transition-colors hover:text-secondary" title="Admin Login">
+              <LogIn className="h-5 w-5" />
+            </Link>
           </nav>
           <MobileNav currentPage="Home" variant="light" />
         </div>

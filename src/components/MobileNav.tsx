@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { X, Menu } from "lucide-react";
+import { X, Menu, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 
@@ -32,6 +32,7 @@ export default function MobileNav({ currentPage, variant = "dark" }: MobileNavPr
     { href: "/bonus-depreciation", label: "Bonus Depreciation" },
     { href: "/resources", label: "Resources & Downloads" },
     { href: "/#contact", label: "Contact" },
+    { href: "/admin/login", label: "Admin Login", icon: LogIn },
   ];
 
   const iconColor = variant === "light" ? "text-foreground" : "text-white";
@@ -87,21 +88,25 @@ export default function MobileNav({ currentPage, variant = "dark" }: MobileNavPr
           {/* Navigation Links */}
           <nav className="flex-1 overflow-y-auto p-6">
             <ul className="space-y-2">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={closeMenu}
-                    className={`block rounded-lg px-4 py-3 text-sm font-medium uppercase tracking-wide transition-all ${
-                      currentPage === link.label
-                        ? "bg-secondary text-primary"
-                        : "text-white hover:bg-white/10 hover:text-secondary"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {navLinks.map((link) => {
+                const Icon = 'icon' in link ? link.icon : null;
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={closeMenu}
+                      className={`flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium uppercase tracking-wide transition-all ${
+                        currentPage === link.label
+                          ? "bg-secondary text-primary"
+                          : "text-white hover:bg-white/10 hover:text-secondary"
+                      }`}
+                    >
+                      {Icon && <Icon className="h-4 w-4" />}
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
