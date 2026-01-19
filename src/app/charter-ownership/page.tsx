@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Calculator, CheckCircle2, DollarSign, Mail, MapPin, Phone, Ship, Star, TrendingUp, Users, Building2, FileText, AlertTriangle, Briefcase } from "lucide-react";
+import { ArrowLeft, Calculator, CheckCircle2, DollarSign, Mail, MapPin, Phone, Ship, Star, TrendingUp, Users, Building2, FileText, AlertTriangle, Briefcase , LogIn} from "lucide-react";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 import Logo from "@/components/Logo";
@@ -27,6 +27,7 @@ export default function CharterOwnershipPage() {
             <Link href="/training" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Training</Link>
             <Link href="/charter-ownership" className="text-sm font-medium uppercase tracking-wide text-secondary">Charter Ownership</Link>
             <Link href="/#contact" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Contact</Link>
+          <Link href="/admin/login" className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary" title="Admin Panel"><LogIn className="h-4 w-4" />Admin</Link>
           </nav>
           <MobileNav currentPage="Charter Ownership" variant="light" />
         </div>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Anchor, ArrowLeft, Bed, Calendar, Check, DollarSign, Gauge, GraduationCap, HelpCircle, Mail, MapPin, Phone, Ruler, Send, Ship, Users, Waves, AlertTriangle } from "lucide-react";
+import { Anchor, ArrowLeft, Bed, Calendar, Check, DollarSign, Gauge, GraduationCap, HelpCircle, Mail, MapPin, Phone, Ruler, Send, Ship, Users, Waves, AlertTriangle , LogIn} from "lucide-react";
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 import Logo from "@/components/Logo";
@@ -808,6 +808,7 @@ export default async function BaliModelPage({ params, searchParams }: { params: 
             <Link href="/training" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Training</Link>
             <Link href="/charter-ownership" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Charter Ownership</Link>
             <Link href="/#contact" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Contact</Link>
+          <Link href="/admin/login" className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary" title="Admin Panel"><LogIn className="h-4 w-4" />Admin</Link>
           </nav>
           <MobileNav currentPage="New Bali" variant="light" />
         </div>

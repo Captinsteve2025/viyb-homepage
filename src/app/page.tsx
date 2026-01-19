@@ -111,8 +111,8 @@ export default function Home() {
             <Link href="/training" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Training</Link>
             <Link href="/charter-ownership" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Charter Ownership</Link>
             <a href="#contact" className="text-sm font-medium uppercase tracking-wide text-foreground transition-colors hover:text-secondary">Contact</a>
-            <Link href="/admin/login" className="p-2 text-muted-foreground transition-colors hover:text-secondary" title="Admin Login">
-              <LogIn className="h-5 w-5" />
+            <Link href="/admin/login" className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary" title="Admin Panel">
+              <LogIn className="h-4 w-4" />Admin
             </Link>
           </nav>
           <MobileNav currentPage="Home" variant="light" />

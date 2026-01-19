@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Bed, Check, Gauge, Mail, MapPin, Phone, Ruler, Users, Waves, X } from "lucide-react";
+import { ArrowLeft, Bed, Check, Gauge, Mail, MapPin, Phone, Ruler, Users, Waves, X , LogIn} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import MobileNav from "@/components/MobileNav";
@@ -174,6 +174,7 @@ export default function ComparePage() {
             <Link href="/training" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Training</Link>
             <Link href="/charter-ownership" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Charter Ownership</Link>
             <Link href="/#contact" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Contact</Link>
+          <Link href="/admin/login" className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary" title="Admin Panel"><LogIn className="h-4 w-4" />Admin</Link>
           </nav>
           <MobileNav currentPage="Compare Bali Models" variant="light" />
         </div>

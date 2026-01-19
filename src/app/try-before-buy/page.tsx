@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Award, Calendar, CheckCircle2, DollarSign, Mail, MapPin, Phone, Sailboat, Star, Users } from "lucide-react";
+import { ArrowLeft, Award, Calendar, CheckCircle2, DollarSign, Mail, MapPin, Phone, Sailboat, Star, Users , LogIn} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import MobileNav from "@/components/MobileNav";
@@ -81,6 +81,7 @@ export default function TryBeforeYouBuyPage() {
             <Link href="/training" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Training</Link>
             <Link href="/charter-ownership" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Charter Ownership</Link>
             <Link href="/#contact" className="text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary">Contact</Link>
+          <Link href="/admin/login" className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-secondary" title="Admin Panel"><LogIn className="h-4 w-4" />Admin</Link>
           </nav>
           <MobileNav currentPage="Try Before You Buy" variant="light" />
         </div>
